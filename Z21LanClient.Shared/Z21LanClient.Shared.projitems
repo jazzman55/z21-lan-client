@@ -9,5 +9,51 @@
     <Import_RootNamespace>Z21LanClient.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetFirmwareVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetHardwareInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetLanCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetLocoInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetSerialNumber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GetVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ICommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\LogOff.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\LogOn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetBroadcastFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetLocoDrive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetLocoFunction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetStop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetTrackPowerOff.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SetTrackPowerOn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SystemStateGetData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\CentralStateEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersionEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\HwInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\HwInfoEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\IHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\LocoInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\LocoInfoEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\ProgrammingMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\SerialNumber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\SerialNumberEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\StatusChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\Stopped.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\SystemStateChanged.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\SystemStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackPowerOff.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackPowerOn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackShortCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\Version.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\VersionEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IUdpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Capabilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CentralState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\CentralStateEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Direction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\FunctionToggle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\SpeedSteps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Z21CommandStation.cs" />
   </ItemGroup>
 </Project>
