@@ -2,11 +2,11 @@
 
 namespace Z21LanClient.Interface
 {
+    public delegate void ReceivedCallbackDelegate(byte[] data);
+
     public interface IUdpClient : IDisposable
     {
-        public delegate void ReceivedCallbackDelegate(byte[] data);
-
-        ReceivedCallbackDelegate ReceivedCallback { get; set; }
+        ReceivedCallbackDelegate? ReceivedCallback { get; set; }
 
         void Connect(string host, int port);
         void Close();
