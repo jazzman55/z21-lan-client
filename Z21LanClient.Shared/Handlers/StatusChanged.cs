@@ -17,7 +17,7 @@ namespace Z21LanClient.Handlers
             if (!Helpers.BytesEqual(message, new byte[] { 0x40, 0x00, 0x62, 0x22 }, 2))
                 return false;
 
-            _messageEventHandler?.Invoke(this, new CentralStateEventArgs((CentralState)message[6]));
+            _messageEventHandler?.Invoke(this, new StatusChangedEventArgs((CentralState)message[6]));
 
             return true;
         }

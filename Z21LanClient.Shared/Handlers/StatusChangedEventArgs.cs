@@ -3,9 +3,9 @@ using Z21LanClient.Model;
 
 namespace Z21LanClient.Handlers
 {
-    public class CentralStateEventArgs: EventArgs
+    public class StatusChangedEventArgs: EventArgs
     {
-        public CentralStateEventArgs(CentralState centralState)
+        public StatusChangedEventArgs(CentralState centralState)
         {
             CentralState = centralState;
         }
