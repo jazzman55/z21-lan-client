@@ -4,8 +4,11 @@ namespace Z21LanClient
 {
     public static class Helpers
     {
-        public static byte Checksum(byte[] bytes, int startIndex, int endIndex)
+        public static byte Checksum(byte[] bytes, int startIndex = 4, int endIndex = -1)
         {
+            if (endIndex == -1)
+                endIndex = bytes.Length - 2; //assuming one before last byte
+
             byte result = 0;
             for (int i = startIndex; i <= endIndex; i++)
             {
@@ -14,10 +17,13 @@ namespace Z21LanClient
             return result;
         }
 
-        public static void CopyAddress(int address, byte[] bytes, int index)
+        public static void SetAddress(int address, byte[] bytes, int index)
         {
-            BitConverter.GetBytes((UInt16)address).CopyTo(bytes, index);
+            bytes[index] = (byte)(address < 0x80 ? address >> 8 : (address >> 8) | 0xC0);
+            bytes[index + 1] = (byte)address;
         }
+
+        public static int GetAddress(byte[] bytes, int index) => ((bytes[index] & 0x3F) << 8) + bytes[index + 1];
 
         public static bool BytesEqual(byte[] bytes1, byte[] bytes2, int startIndex)
         {

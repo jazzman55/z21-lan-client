@@ -21,7 +21,7 @@ namespace Z21LanClient.Handlers
 
             var args = new LocoInfoEventArgs(
 
-                ((message[5] & 0x3F) << 8) + message[6],
+                Helpers.GetAddress(message, 5),
                 Helpers.BitEnabled(message[7], 3),
                 (SpeedSteps)(message[8] & 7),
                 Helpers.BitEnabled(message[8], 7) ? Direction.Forward : Direction.Backward,

@@ -1,4 +1,5 @@
-﻿namespace Z21LanClient.Commands
+﻿using System;
+namespace Z21LanClient.Commands
 {
     /// <summary>
     /// LAN_X_GET_LOCO_INFO
@@ -11,13 +12,9 @@
         {
             Bytes = new byte[] { 0x09, 0x00, 0x40, 0x00, 0xE3, 0xF0, 0x00, 0x00, 0x00 };
 
-            var b = (byte)(address >> 8);
-            if (address >= 128)
-                b += 192;
-            Bytes[6] = b;
-            Bytes[7] = (byte)(address % 256);
+            BitConverter.GetBytes((UInt16)address).CopyTo(Bytes, 6);
 
-            Bytes[8] = (byte)(Bytes[4] ^ Bytes[5] ^ Bytes[6] ^ Bytes[7]);
+            Bytes[8] = Helpers.Checksum(Bytes);
         }
 
     }

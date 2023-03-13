@@ -15,11 +15,11 @@ namespace Z21LanClient.Commands
 
             Bytes[5] = (byte)(0x10 + (ushort)speedSteps);
 
-            Helpers.CopyAddress(address, Bytes, 6);
+            Helpers.SetAddress(address, Bytes, 6);
 
             Bytes[8] = (byte)(speed | (direction == Direction.Forward ? 0b10000000 : 0));
 
-            Bytes[9] = Helpers.Checksum(Bytes, 4, 8);
+            Bytes[9] = Helpers.Checksum(Bytes);
         }
     }
 }
