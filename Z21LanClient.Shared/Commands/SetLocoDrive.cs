@@ -1,4 +1,5 @@
-﻿using Z21LanClient.Model;
+﻿using System;
+using Z21LanClient.Model;
 
 namespace Z21LanClient.Commands
 {
@@ -9,13 +10,37 @@ namespace Z21LanClient.Commands
     {
         public byte[] Bytes { get; }
 
-        public SetLocoDrive(int address, Direction direction, int speed, SpeedSteps speedSteps = SpeedSteps.DCC_128)
+        /// <summary>
+        /// Creates new instance of SetLocoDrive command.
+        /// </summary>
+        /// <param name="address">Loco address</param>
+        /// <param name="direction">Driving direction</param>
+        /// <param name="speed">Speed DCC128: [0-126] / DCC14: [0-14] / E-Stop: -1 </param>
+        /// <param name="speedSteps">DCC128 / DCC14. DCC28 not currently supported </param>
+        public SetLocoDrive(int address, Direction direction, int speed, SpeedSteps speedSteps = SpeedSteps.Dcc128)
         {
-            Bytes = new byte[10] { 0x0A, 0x00, 0x40, 0x00, 0xE4, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            switch (speedSteps)
+            {
+                case SpeedSteps.Dcc14:
+                    if (speed > 14) throw new ArgumentOutOfRangeException(nameof(speed)); break;
+                case SpeedSteps.Dcc128:
+                    if (speed > 126) throw new ArgumentOutOfRangeException(nameof(speed)); break;
+                case SpeedSteps.Dcc28:
+                    throw new NotSupportedException("DCC28 not currently supported");
+            }
 
-            Bytes[5] = (byte)(0x10 + (ushort)speedSteps);
+            Bytes = new byte[] { 0x0A, 0x00, 0x40, 0x00, 0xE4, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+            Bytes[5] = (byte)(0x10 | (ushort)speedSteps);
 
             Helpers.SetAddress(address, Bytes, 6);
+
+            switch (speed)
+            {
+                case -1: speed = 1;break; //E-Stop
+                case 0: break; // Stop
+                default: speed += 1; break;
+            }
 
             Bytes[8] = (byte)(speed | (direction == Direction.Forward ? 0b10000000 : 0));
 

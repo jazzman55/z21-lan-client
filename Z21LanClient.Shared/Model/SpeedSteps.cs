@@ -2,8 +2,8 @@
 {
     public enum SpeedSteps : ushort
     {
-        DCC_14 = 0,
-        DCC_28 = 2,
-        DCC_128 = 3
+        Dcc14 = 0,
+        Dcc28 = 2,
+        Dcc128 = 3
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Z21LanClient.Commands
+﻿using Z21LanClient.Model;
+
+namespace Z21LanClient.Commands
 {
     public class LogOn : SetBroadcastFlags
     {

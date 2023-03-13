@@ -48,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\VersionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IUdpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\BroadcastFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Capabilities.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CentralState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\CentralStateEx.cs" />

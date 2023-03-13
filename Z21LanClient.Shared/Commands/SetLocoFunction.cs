@@ -11,11 +11,11 @@ namespace Z21LanClient.Commands
 
         public SetLocoFunction(int address, int function, FunctionToggle toggle)
         {
-            Bytes = new byte[10] {0x0A, 0x00, 0x40, 0x00, 0xE4, 0xF8, 0x00, 0x00, 0x00, 0x00 };
+            Bytes = new byte[] {0x0A, 0x00, 0x40, 0x00, 0xE4, 0xF8, 0x00, 0x00, 0x00, 0x00 };
 
             Helpers.SetAddress(address, Bytes, 6);
 
-            Bytes[8] = (byte)(function | ((byte)toggle << 6));
+            Bytes[8] = (byte)((function & 0x3F) | ((byte)toggle << 6));
             Bytes[9] = Helpers.Checksum(Bytes);
         }
     }
