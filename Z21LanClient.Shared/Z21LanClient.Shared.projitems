@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackPowerOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackPowerOn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\TrackShortCircuit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\UnknownCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\Version.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\VersionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />

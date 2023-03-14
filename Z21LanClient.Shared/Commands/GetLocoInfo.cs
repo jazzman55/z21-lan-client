@@ -1,5 +1,4 @@
-﻿using System;
-namespace Z21LanClient.Commands
+﻿namespace Z21LanClient.Commands
 {
     /// <summary>
     /// LAN_X_GET_LOCO_INFO

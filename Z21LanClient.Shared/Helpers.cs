@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Z21LanClient
+﻿namespace Z21LanClient
 {
     public static class Helpers
     {

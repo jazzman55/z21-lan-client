@@ -33,6 +33,7 @@ namespace Z21LanClient
         public event EventHandler? TrackPowerOnReceived;
         public event EventHandler? TrackShortCircuitReceived;
         public event EventHandler? VersionReceived;
+        public event EventHandler? UnknownCommandReceived;
 
         public Z21CommandStation(IUdpClient udpClient, ILogger logger)
         {
@@ -52,7 +53,8 @@ namespace Z21LanClient
                 new TrackPowerOff((s, a) => TrackPowerOffReceived?.Invoke(s, a)),
                 new TrackPowerOn((s, a) => TrackPowerOnReceived?.Invoke(s, a)),
                 new TrackShortCircuit((s, a) => TrackShortCircuitReceived?.Invoke(s, a)),
-                new Handlers.Version((s, a) => VersionReceived?.Invoke(s, a))
+                new Handlers.Version((s, a) => VersionReceived?.Invoke(s, a)),
+                new UnknownCommand((s, a) => UnknownCommandReceived?.Invoke(s, a))
             };
 
             _renewSubscriptionTimer = new Timer(_ => Send(_getStatusCommand), null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
