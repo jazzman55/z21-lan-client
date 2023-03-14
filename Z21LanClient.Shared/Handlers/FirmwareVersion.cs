@@ -2,6 +2,9 @@
 
 namespace Z21LanClient.Handlers
 {
+    /// <summary>
+    /// LAN_X_GET_FIRMWARE_VERSION
+    /// </summary>
     public class FirmwareVersion : IHandler
     {
         private readonly EventHandler _messageEventHandler;

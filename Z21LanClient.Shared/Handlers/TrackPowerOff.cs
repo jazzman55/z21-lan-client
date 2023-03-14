@@ -2,6 +2,9 @@
 
 namespace Z21LanClient.Handlers
 {
+    /// <summary>
+    /// LAN_X_BC_TRACK_POWER_OFF
+    /// </summary>
     public class TrackPowerOff :IHandler
     {
         private readonly EventHandler _messageEventHandler;

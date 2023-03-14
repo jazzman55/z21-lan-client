@@ -2,6 +2,9 @@
 
 namespace Z21LanClient.Handlers
 {
+    /// <summary>
+    /// LAN_X_BC_STOPPED
+    /// </summary>
     public class Stopped : IHandler
     {
         private readonly EventHandler _messageEventHandler;

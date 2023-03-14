@@ -3,6 +3,9 @@ using Z21LanClient.Model;
 
 namespace Z21LanClient.Handlers
 {
+    /// <summary>
+    /// LAN_X_STATUS_CHANGED
+    /// </summary>
     public class StatusChanged : IHandler
     {
         private readonly EventHandler _messageEventHandler;

@@ -35,12 +35,12 @@ namespace Z21LanClient.Commands
 
             Helpers.SetAddress(address, Bytes, 6);
 
-            switch (speed)
+            speed = speed switch
             {
-                case -1: speed = 1;break; //E-Stop
-                case 0: break; // Stop
-                default: speed += 1; break;
-            }
+                -1 => 1, //E-Stop
+                0 => 0, // Stop
+                _ => speed + 1
+            };
 
             Bytes[8] = (byte)(speed | (direction == Direction.Forward ? 0b10000000 : 0));
 

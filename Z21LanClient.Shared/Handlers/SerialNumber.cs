@@ -3,6 +3,9 @@ using System;
 
 namespace Z21LanClient.Handlers
 {
+    /// <summary>
+    /// LAN_GET_SERIAL_NUMBER
+    /// </summary>
     public class SerialNumber : IHandler
     {
         private readonly EventHandler _messageEventHandler;
