@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Z21LanClient.Commands;
 using Z21LanClient.Handlers;
 using Z21LanClient.Interface;
+using Z21LanClient.Shared.Extensions;
 
 namespace Z21LanClient
 {
@@ -12,13 +13,10 @@ namespace Z21LanClient
     {
         private readonly IUdpClient _udpClient;
         private readonly ILogger _logger;
-
         private readonly IHandler[] _handlers;
-
+        private readonly IHandler[]? _customHandlers;
         private readonly Timer _renewSubscriptionTimer;
-
         private readonly ICommand _getStatusCommand = new GetStatus();
-
         private readonly TimeSpan _renewSubscriptionInterval = TimeSpan.FromSeconds(50);
 
         public event EventHandler? FirmwareVersionReceived;
@@ -35,10 +33,11 @@ namespace Z21LanClient
         public event EventHandler? VersionReceived;
         public event EventHandler? UnknownCommandReceived;
 
-        public Z21CommandStation(IUdpClient udpClient, ILogger logger)
+        public Z21CommandStation(IUdpClient udpClient, ILogger logger, IHandler[]? customHandlers = null)
         {
             _udpClient = udpClient;
             _logger = logger;
+            _customHandlers = customHandlers;
 
             _handlers = new IHandler[]
             {
@@ -86,18 +85,49 @@ namespace Z21LanClient
         public void Send(ICommand command)
         {
             _udpClient.Send(command.Bytes, command.Bytes.Length);
+            _logger.LogDebug($"Command {command.GetType().Name} sent");
         }
 
         private void ProcessMessage(byte[] message)
         {
+            var handled = false;
+
+            if (_customHandlers is not null && _customHandlers.Length > 0)
+            {
+                foreach (var handler in _customHandlers)
+                {
+                    handled = HandleMessage(message, handler);
+                }
+            }
+
             foreach (var handler in _handlers)
             {
-                if (handler.Handle(message))
-                    break;
+                handled = HandleMessage(message, handler);
+            }
+
+            if (!handled)
+            {
+                _logger.LogDebug($"Unhandled message: {message.ToHexString()}");
             }
         }
 
-        public static ArrayList SplitMessages(byte[] message)
+        private bool HandleMessage(byte[] message, IHandler handler)
+        {
+            try
+            {
+                if (!handler.Handle(message))
+                    return false;
+
+                _logger.LogDebug($"Message {handler.GetType().Name} received");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Error processing message by {handler.GetType().Name}");
+            }
+            return true;
+        }
+
+        public ArrayList SplitMessages(byte[] message)
         {
             var list = new ArrayList();
             int i = 0;
@@ -107,6 +137,7 @@ namespace Z21LanClient
                 if (len < 4 || i + len > message.Length)
                 {
                     //invalid message, skip
+                    _logger.LogWarning($"Invalid length. Message skipped");
                     break;
                 }
 

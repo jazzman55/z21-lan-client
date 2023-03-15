@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SetTrackPowerOff.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SetTrackPowerOn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SystemStateGetData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ByteArrayExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\StatusChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersionEventArgs.cs" />
