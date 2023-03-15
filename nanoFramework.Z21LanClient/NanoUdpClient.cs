@@ -1,6 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using nanoFramework.Z21LanClient.Extensions;
 using Z21LanClient.Interface;
 
 namespace Z21.Device
@@ -10,11 +13,13 @@ namespace Z21.Device
         private readonly UdpClient _client;
         private Thread _receiveThread;
         private readonly byte[] _buffer = new byte[1024];
+        private readonly ILogger _logger;
 
-        public ReceivedCallbackDelegate? ReceivedCallback { get; set; }
+        public ReceivedCallbackDelegate ReceivedCallback { get; set; }
 
-        public NanoUdpClient()
+        public NanoUdpClient(ILogger logger)
         {
+            _logger = logger;
             _client = new UdpClient();
         }
 
@@ -34,30 +39,33 @@ namespace Z21.Device
 
         private void Received()
         {
-            try
+            IPEndPoint remoteIpEndPoint = null!;
+
+            while (true)
             {
-                IPEndPoint remoteIpEndPoint = null!;
-                var length = _client.Receive(_buffer, ref remoteIpEndPoint);
-
-
-
-                var data = new byte[length];
-                for (int i = 0; i < length; i++)
+                try
                 {
-                    data[i] = _buffer[i];
+                    var length = _client.Receive(_buffer, ref remoteIpEndPoint);
+                    
+                    ReceivedCallback?.Invoke(_buffer.GetFragment(0, length));
                 }
-                ReceivedCallback?.Invoke(data);
+                catch (ThreadAbortException)
+                {
+                    break;
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Receiving error");
+                }
 
                 Thread.Sleep(1);
-
-                _receiveThread = new Thread(Received);
-                _receiveThread.Start();
             }
-            catch (ThreadAbortException) { }
         }
 
         public void Close()
         {
+            _receiveThread?.Abort();
+            _receiveThread = null!;
             _client.Close();
         }
 

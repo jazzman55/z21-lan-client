@@ -22,7 +22,7 @@ namespace nanoFramework.TrainController
             WifiNetworkHelper.ConnectDhcp("RAILROAD", "12345678", requiresDateTime: false);
 
 
-            var client = new Z21CommandStation(new NanoUdpClient(), new DebugLogger(nameof(Z21CommandStation)));
+            var client = new Z21CommandStation(new NanoUdpClient(new DebugLogger(nameof(NanoUdpClient))), new DebugLogger(nameof(Z21CommandStation)));
 
             client.LocoInfoReceived += Client_LocoInfoReceived;
             client.StatusChangedReceived += Client_StatusChangedReceived;
