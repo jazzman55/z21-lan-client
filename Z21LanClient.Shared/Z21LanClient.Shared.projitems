@@ -27,6 +27,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SetTrackPowerOn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\SystemStateGetData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ByteArrayExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ByteExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MessageExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\StatusChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\FirmwareVersionEventArgs.cs" />
@@ -48,7 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\UnknownCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\Version.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\VersionEventArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\IUdpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\BroadcastFlags.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Capabilities.cs" />

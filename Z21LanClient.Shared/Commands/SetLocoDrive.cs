@@ -1,5 +1,6 @@
 ﻿using System;
 using Z21LanClient.Model;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient.Commands
 {
@@ -33,7 +34,7 @@ namespace Z21LanClient.Commands
 
             Bytes[5] = (byte)(0x10 | (ushort)speedSteps);
 
-            Helpers.SetAddress(address, Bytes, 6);
+            Bytes.SetAddress(address, 6);
 
             speed = speed switch
             {
@@ -44,7 +45,7 @@ namespace Z21LanClient.Commands
 
             Bytes[8] = (byte)(speed | (direction == Direction.Forward ? 0b10000000 : 0));
 
-            Bytes[9] = Helpers.Checksum(Bytes);
+            Bytes.SetChecksum();
         }
     }
 }

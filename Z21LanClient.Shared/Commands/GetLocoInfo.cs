@@ -1,4 +1,6 @@
-﻿namespace Z21LanClient.Commands
+﻿using Z21LanClient.Extensions;
+
+namespace Z21LanClient.Commands
 {
     /// <summary>
     /// LAN_X_GET_LOCO_INFO
@@ -11,9 +13,9 @@
         {
             Bytes = new byte[] { 0x09, 0x00, 0x40, 0x00, 0xE3, 0xF0, 0x00, 0x00, 0x00 };
 
-            Helpers.SetAddress(address, Bytes, 6);
+            Bytes.SetAddress(address, 6);
 
-            Bytes[8] = Helpers.Checksum(Bytes);
+            Bytes.SetChecksum();
         }
 
     }

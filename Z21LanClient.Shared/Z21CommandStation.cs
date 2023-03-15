@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Z21LanClient.Commands;
 using Z21LanClient.Handlers;
 using Z21LanClient.Interface;
-using Z21LanClient.Shared.Extensions;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient
 {

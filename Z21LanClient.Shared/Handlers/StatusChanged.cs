@@ -1,4 +1,5 @@
 ﻿using System;
+using Z21LanClient.Extensions;
 using Z21LanClient.Model;
 
 namespace Z21LanClient.Handlers
@@ -17,7 +18,7 @@ namespace Z21LanClient.Handlers
 
         public bool Handle(byte[] message)
         {
-            if (!Helpers.BytesEqual(message, new byte[] { 0x40, 0x00, 0x62, 0x22 }, 2))
+            if (!message.FragmentsEqual(new byte[] { 0x40, 0x00, 0x62, 0x22 }, 2))
                 return false;
 
             _messageEventHandler?.Invoke(this, new StatusChangedEventArgs((CentralState)message[6]));

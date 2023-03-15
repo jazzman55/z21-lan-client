@@ -1,4 +1,5 @@
 ﻿using System;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient.Handlers
 {
@@ -16,11 +17,11 @@ namespace Z21LanClient.Handlers
 
         public bool Handle(byte[] message)
         {
-            if (!Helpers.BytesEqual(message, new byte[]{0x40, 0x00, 0xF3}, 2))
+            if (!message.FragmentsEqual(new byte[]{0x40, 0x00, 0xF3}, 2))
                 return false;
 
             _messageEventHandler?.Invoke(this, new FirmwareVersionEventArgs(
-                $"{Helpers.BcdToInt(message[6])}.{Helpers.BcdToInt(message[7])}"));
+                $"{message[6].BcdToInt()}.{message[7].BcdToInt()}"));
 
             return true;
         }

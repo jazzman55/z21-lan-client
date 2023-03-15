@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient.Handlers
 {
@@ -17,7 +18,7 @@ namespace Z21LanClient.Handlers
 
         public bool Handle(byte[] message)
         {
-            if (!Helpers.BytesEqual(message, 0x1A, 2))
+            if (!message.FragmentsEqual(0x1A, 2))
                 return false;
 
             var hwType = BitConverter.ToUInt32(message, 4) switch
@@ -30,7 +31,7 @@ namespace Z21LanClient.Handlers
                 _ => "UNKNOWN"
             };
 
-            var fwVersion = $"{Helpers.BcdToInt(message[9])}.{Helpers.BcdToInt(message[8])}";
+            var fwVersion = $"{message[9].BcdToInt()}.{message[8].BcdToInt()}";
 
             _messageEventHandler?.Invoke(this, new HwInfoEventArgs(hwType, fwVersion));
 

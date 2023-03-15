@@ -1,4 +1,5 @@
 ﻿using Z21LanClient.Model;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient.Commands
 {
@@ -13,10 +14,10 @@ namespace Z21LanClient.Commands
         {
             Bytes = new byte[] {0x0A, 0x00, 0x40, 0x00, 0xE4, 0xF8, 0x00, 0x00, 0x00, 0x00 };
 
-            Helpers.SetAddress(address, Bytes, 6);
+            Bytes.SetAddress(address, 6);
 
             Bytes[8] = (byte)((function & 0x3F) | ((byte)toggle << 6));
-            Bytes[9] = Helpers.Checksum(Bytes);
+            Bytes.SetChecksum();
         }
     }
 }

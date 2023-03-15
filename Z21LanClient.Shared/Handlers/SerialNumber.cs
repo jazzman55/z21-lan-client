@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Z21LanClient.Extensions;
 
 namespace Z21LanClient.Handlers
 {
@@ -17,7 +18,7 @@ namespace Z21LanClient.Handlers
 
         public bool Handle(byte[] message)
         {
-            if (!Helpers.BytesEqual(message, 0x10, 2))
+            if (!message.FragmentsEqual(0x10, 2))
                 return false;
 
             _messageEventHandler?.Invoke(this, new SerialNumberEventArgs(BitConverter.ToInt32(message, 4)));
