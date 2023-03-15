@@ -97,12 +97,19 @@ namespace Z21LanClient
                 foreach (var handler in _customHandlers)
                 {
                     handled = HandleMessage(message, handler);
+                    if (handled)
+                        break;
                 }
             }
 
-            foreach (var handler in _handlers)
+            if (!handled)
             {
-                handled = HandleMessage(message, handler);
+                foreach (var handler in _handlers)
+                {
+                    handled = HandleMessage(message, handler);
+                    if (handled)
+                        break;
+                }
             }
 
             if (!handled)

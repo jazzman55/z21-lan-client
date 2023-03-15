@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E2328EDF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z21LanClient.Tests", "Tests\Z21LanClient.Tests\Z21LanClient.Tests.csproj", "{140801E4-9B2E-4F98-9592-0298EBEB3041}"
 EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.TrainController", "nanoFramework.TrainController\nanoFramework.TrainController.nfproj", "{D405B87B-B7C6-423E-93B8-2CACC45088C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{140801E4-9B2E-4F98-9592-0298EBEB3041}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{140801E4-9B2E-4F98-9592-0298EBEB3041}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{140801E4-9B2E-4F98-9592-0298EBEB3041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D405B87B-B7C6-423E-93B8-2CACC45088C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

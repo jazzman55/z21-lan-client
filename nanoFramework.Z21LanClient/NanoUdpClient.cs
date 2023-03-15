@@ -39,8 +39,7 @@ namespace Z21.Device
                 IPEndPoint remoteIpEndPoint = null!;
                 var length = _client.Receive(_buffer, ref remoteIpEndPoint);
 
-                _receiveThread = new Thread(Received);
-                _receiveThread.Start();
+
 
                 var data = new byte[length];
                 for (int i = 0; i < length; i++)
@@ -48,6 +47,11 @@ namespace Z21.Device
                     data[i] = _buffer[i];
                 }
                 ReceivedCallback?.Invoke(data);
+
+                Thread.Sleep(1);
+
+                _receiveThread = new Thread(Received);
+                _receiveThread.Start();
             }
             catch (ThreadAbortException) { }
         }
