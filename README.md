@@ -8,6 +8,8 @@ Due to code sharing between .NET Core and nanoFramework implementation, some nic
 ## Usage
 nanoFramework:
 ```c#
+WifiNetworkHelper.ConnectDhcp(Ssid, Password, requiresDateTime: false);
+
 //Create client instance
 var client = new Z21CommandStation(new NanoUdpClient(new DebugLogger(nameof(NanoUdpClient))), new DebugLogger(nameof(Z21CommandStation)));
 
