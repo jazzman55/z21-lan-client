@@ -84,8 +84,16 @@ namespace Z21LanClient
 
         public void Send(ICommand command)
         {
-            _udpClient.Send(command.Bytes, command.Bytes.Length);
-            _logger.LogDebug($"Command {command.GetType().Name} sent");
+            try
+            {
+                _udpClient.Send(command.Bytes, command.Bytes.Length);
+                _logger.LogDebug($"Command {command.GetType().Name} sent");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Error sending command {command.GetType().Name}");
+                throw;
+            }
         }
 
         private void ProcessMessage(byte[] message)
@@ -93,24 +101,10 @@ namespace Z21LanClient
             var handled = false;
 
             if (_customHandlers is not null && _customHandlers.Length > 0)
-            {
-                foreach (var handler in _customHandlers)
-                {
-                    handled = HandleMessage(message, handler);
-                    if (handled)
-                        break;
-                }
-            }
+                handled = HandleMessage(message, _customHandlers);
 
             if (!handled)
-            {
-                foreach (var handler in _handlers)
-                {
-                    handled = HandleMessage(message, handler);
-                    if (handled)
-                        break;
-                }
-            }
+                handled = HandleMessage(message, _handlers);
 
             if (!handled)
             {
@@ -118,20 +112,27 @@ namespace Z21LanClient
             }
         }
 
-        private bool HandleMessage(byte[] message, IHandler handler)
+        private bool HandleMessage(byte[] message, IHandler[] handlers)
         {
-            try
+            var handled = false;
+            foreach (var handler in handlers)
             {
-                if (!handler.Handle(message))
-                    return false;
+                try
+                {
+                    handled = handler.Handle(message);
+                    if (handled)
+                    {
+                        _logger.LogDebug($"Message {handler.GetType().Name} received");
+                        break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, $"Error processing message by {handler.GetType().Name}");
+                }
+            }
 
-                _logger.LogDebug($"Message {handler.GetType().Name} received");
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Error processing message by {handler.GetType().Name}");
-            }
-            return true;
+            return handled;
         }
 
         public ArrayList SplitMessages(byte[] message)
