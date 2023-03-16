@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using Z21LanClient.Interface;
 
-namespace Z21.Core
+namespace Z21LanClient
 {
     public class CoreUdpClient : IUdpClient
     {

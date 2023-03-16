@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using nanoFramework.Z21LanClient.Extensions;
 using Z21LanClient.Interface;
 
-namespace Z21.Device
+namespace nanoFramework.Z21LanClient
 {
     public class NanoUdpClient : IUdpClient
     {
