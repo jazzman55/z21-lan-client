@@ -1,6 +1,7 @@
 # Z21 LAN Client
 .NET Core & [nanoFramework](https://www.nanoframework.net/) library for communication with [Z21](https://www.z21.eu/en) DCC command station.
 ## Description
+- Based on [Z21 LAN Protocol Specification](https://www.z21.eu/media/Kwc_Basic_DownloadTag_Component/root-en-main_47-1652-959-downloadTag-download/default/d559b9cf/1628743384/z21-lan-protokoll-en.pdf)
 - Uses UDP for network communication to Z21
 - Not all features of Z21 protocol are implemented, however you can drive trains and do most useful things on model railway :)
 ## Notes
