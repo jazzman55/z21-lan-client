@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Xunit.Abstractions;
 using Z21LanClient.Extensions;
 using ByteArrayExtension = Z21LanClient.Extensions.ByteArrayExtension;
@@ -77,6 +78,38 @@ namespace Z21LanClient.Tests
             Assert.True(a[3]);
             Assert.False(a[4]);
             Assert.True(a[5]);
+        }
+
+        [Fact]
+        public void SplitMessages_should_return_messages_list()
+        {
+            var data = new byte[]
+            {
+                0x08, 0x00, 0x40, 0x00, 0x62, 0x22, 0x00, 0x00, /**/
+                0x07, 0x00, 0x40, 0x00, 0x81, 0x00, 0x81, /**/
+                0x07, 0x00, 0x40, 0x00, 0x61, 0x00, 0x61
+            };
+        
+            var result = data.SplitMessages();
+        
+            Assert.Equal(3, result.Count);
+            Assert.Equal(8, ((byte[])result[0]).Length);
+            Assert.Equal(7, ((byte[])result[1]).Length);
+            Assert.Equal(7, ((byte[])result[2]).Length);
+        }
+
+        [Fact]
+        public void SplitMessages_given_invalid_length_byte_should_throw_exception()
+        {
+            var data = new byte[]
+            {
+                0x08, 0x00, 0x40, 0x00, 0x62, 0x22, 0x00, 0x00, /**/
+                0x07, 0x00, 0x40, 0x00, 0x81, 0x00, 0x81, /**/
+                0x0A, 0x00, 0x40, 0x00, 0x61, 0x00, 0x61
+            };
+
+            Assert.Throws(typeof(ArgumentException), () => data.SplitMessages());
+
         }
     }
 }

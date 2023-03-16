@@ -1,9 +1,31 @@
 ﻿using System;
+using System.Collections;
 
 namespace Z21LanClient.Extensions
 {
     public static class MessageExtension
     {
+        public static ArrayList SplitMessages(this byte[] message)
+        {
+            var list = new ArrayList();
+            int i = 0;
+            while (i < message.Length)
+            {
+                var len = message[i];
+                if (len < 4 || i + len > message.Length)
+                {
+                    //invalid message
+                    throw new ArgumentException("Invalid message length", nameof(message));
+                }
+
+                var m = new byte[len];
+                Array.Copy(message, i, m, 0, len);
+                list.Add(m);
+                i += len;
+            }
+            return list;
+        }
+
         public static byte Checksum(this byte[] bytes, int startIndex = 4, int endIndex = -1)
         {
             if (endIndex == -1)

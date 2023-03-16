@@ -75,10 +75,16 @@ namespace Z21LanClient
 
         private void ReceivedCallback(byte[] data)
         {
-            var messages = SplitMessages(data);
-            foreach (byte[] message in messages)
+            try
             {
-                ProcessMessage(message);
+                foreach (byte[] message in data.SplitMessages())
+                {
+                    ProcessMessage(message);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Invalid message", e);
             }
         }
 
@@ -133,28 +139,6 @@ namespace Z21LanClient
             }
 
             return handled;
-        }
-
-        public ArrayList SplitMessages(byte[] message)
-        {
-            var list = new ArrayList();
-            int i = 0;
-            while (i < message.Length)
-            {
-                var len = message[i];
-                if (len < 4 || i + len > message.Length)
-                {
-                    //invalid message, skip
-                    _logger.LogWarning($"Invalid length. Message skipped");
-                    break;
-                }
-
-                var m = new byte[len];
-                Array.Copy(message, i, m, 0, len);
-                list.Add(m);
-                i += len;
-            }
-            return list;
         }
     }
 }
